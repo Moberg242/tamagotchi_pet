@@ -1,12 +1,7 @@
 // alert("it works!");
-//create a class for the game
-    //include the user name, and methods for the following: 
-    //1. feed pet
-    //2. let pet sleep 
-    //3. play with pet
-    //4. name you pet
-        //this will actually be in the constructor thanks
-    //note: these methods can be updated later!
+//create classes for pets and users.
+//pets should be able to eat, sleep, and play
+//users should be able to purchase pets
 
 class Pet {
     constructor(name, petType, price) {
@@ -61,3 +56,16 @@ let leafee = new Pet("leafee","grass", 100);
 // leafee.nap();
 // leafee.play();
 // console.log(me);
+
+//script for opening page:
+//user enters their name and hits go
+    //the name create the user class
+    //the go button navigates to the storepage.html
+
+//script for the store page:
+//user enters their pet's name
+//user selects one of the pet options
+    //the selected option then has a border around it
+//once both of these things have been done, the go button appears
+//the go button creates a pet class with the name and type
+//the go button navigates to the mainpage.html
