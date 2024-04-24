@@ -1,14 +1,21 @@
-* {
-    background-color: rgb(105, 255, 255);
+body {
+    text-align:  center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: #CDFAF6;
+    /* margin-top: 15%; */
 }
 
-body {
-    margin-top: 15%;
-    text-align:  center;
-    /* justify-content: center; */
-    width: 90vw;
-    height: 90vh;
-}
+/* #background {
+    background-image: url("https://cdn.vectorstock.com/i/500p/98/62/cartoon-house-hallway-entrance-interior-vector-44079862.jpg");
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    z-index: -1;
+    border: 5px solid white;
+} */
 
 .name, input {
     border: 1px solid black;
@@ -17,43 +24,94 @@ body {
     margin-left: 15%;
     margin-right: 15%;
     text-align: center;
+    background-color: #CDFAF6;
+}
+
+.name {
+    margin-top: 15%;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 button {
     border-radius: 25px;
     padding: 10px;
-    margin: 10px;
+    margin: 30px;
+    width: 200px;
     font-size: 1em;
+    background-color: #CDFAF6;
 }
 
-img {
-    width: 20%;
-    height: 30vh;
-    /* border: 1px solid black; */
-    margin-top: 20px;
-    padding: 10px;
-    object-fit: cover;
-}
-
-.images {
-    justify-content: space-between;
-    visibility: hidden;
-}
-
-#goToStore {
+#home {
     position: absolute;
-    justify-content: center;
-    align-items: center;
+    border: 4px solid black;
+    width: 80%;
+    height: 80vh;
+    transform: translateX(15%);
+    margin-top: 5%;
+    background-image: url("https://www.shutterstock.com/image-vector/living-room-interior-design-furniture-600nw-529549399.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
-#boughtPet {
-    visibility: hidden;
-    margin-top: 4%;
+h2 {
+    border: 1px solid black;
+    height: 50px;
+    background-color: #FDEBD0;
+    margin: 5px;
+}
+
+ul {
+    border: 1px solid black;
+    text-align: justify;
+    position: fixed;
+    top: 55px;
+    width: 15%;
+    height: 20%;
+    list-style-type: none;
+    background-color: #FDEBD0;
+    margin: 5px;
+}
+
+#petInfo {
+    right: 0%;
+}
+
+li:first-child {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+li {
+    margin-bottom: 2px;
+}
+
+#pet {
     width: 20%;
-    font-size: larger;
+    position: absolute;
+    bottom: 5%;
+    left: 40%;
+    visibility: hidden;
+    /* animation: play 3s */
 }
 
-a {
-    text-decoration: none;
-    color: black;
+@keyframes play {
+
+    20% {
+        transform: scale(1, 0.7);
+    };
+    40% {
+        transform: scale(1, 1);
+    }
+    60% {
+        transform: translateY(40px);
+    }
+    80% {
+        transform: translateY(-40px)
+
+    }
+    100% {
+    }
 }

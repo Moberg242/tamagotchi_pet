@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,21 +8,36 @@
     <script src="js/script.js" defer></script>
     <title>Welcome to Tamagotchi Simulator</title>
 </head>
+
 <body>
-    <div id="openingPages">
-    <h1>Welcome to Tamagotchi Simulator!</h1>
-    <div class="name">
-        <p id="enterName">Please enter your name here: </p>
-        <input type="text" id="userName">
+    <div id="home">
+        <h2>Welcome to Tamagotchi Simulator!</h2>
+            <ul id="petInfo">
+                <li id="petName">Pet Name</li>
+                <li>age: 0</li>
+                <li>sleepiness: 0</li>
+                <li>hunger: 0</li>
+                <li>boredom: 0</li>
+            </ul>
+            <ul>
+                <li>Instructions:</li>
+                <li>&uarr; lights on</li>
+                <li>&darr; lights off</li>
+                <li>&rarr; play</li>
+                <li>&larr; eat</li>
+            </ul>
+
+            <div class="name">
+                <p id="enterName">Please enter your name here: </p>
+                <input type="text" id="userName">
+                <p>Please enter your pet's name here: </p>
+                <input type="text" id="petNameInput">
+                <button type="submit" id="go">Let's Go!</button>
+            </div>
+
+
+            <img src="https://upload.wikimedia.org/wikipedia/en/a/a9/Pok%C3%A9mon_Eevee_art.png" alt="" id="pet">
     </div>
-    <div class="images">
-        <img class="animal" id="owl" src="https://static.vecteezy.com/system/resources/previews/016/547/704/original/watercolor-owl-clip-art-png.png" alt="photo of an owl">
-        <img class="animal" id="otter" src="https://www.newton-longville-school.co.uk/i/Classes/Untitled_design__10_.png" alt="photo of an otter">
-        <img class="animal" id="fox" src="https://t3.ftcdn.net/jpg/05/29/77/32/360_F_529773294_TrQMTj1ESOvPaOJ6orSaxvUss54eRGoo.webp" alt="photo of a fox">
-        <img class="animal" id="racoon" src="https://static.vecteezy.com/system/resources/previews/026/494/891/original/watercolor-of-raccoon-cartoon-character-png.png" alt="photo of a racoon">
-    </div>
-    <button type="submit" id="goToStore">Let's go pick your pet!</button>
-    <button type="submit" id="boughtPet">Buy pet!</button>
-</div>
 </body>
+
 </html>

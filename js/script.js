@@ -54,61 +54,40 @@ class User {
 let writeOpeningScript;
 //script for opening page:
 //user enters their name and hits go
-    //the name create the user class
-    //the go button navigates to the storepage.html (written into html)
+    //the name create the user class and pet class
 
-let goToStoreButton = document.getElementById("goToStore");
-let boughtPetButton = document.getElementById("boughtPet");
-let allOpening = document.getElementById('openingPages');
-let h1 = document.querySelector("h1");
-let enterName = document.querySelector("#enterName")
-let userName = document.getElementById("userName");
-let animal = document.querySelectorAll(".animal");
+
+const title = document.querySelector("h2");
+const goButton = document.getElementById("go");
+const nameBox = document.querySelector('.name');
+const userName = document.getElementById("userName");
+const petNameInput = document.getElementById("petNameInput");
+const petName = document.getElementById("petName");
+const petImage = document.getElementById("pet");
+
 let player;
+    //where the new user class instance will go
 let pet;
+    //where the new pet class instance will go
 
 
-goToStoreButton.addEventListener("click", function() {
+goButton.addEventListener("click", function() {
     player = new User(userName.value);
-    h1.innerHTML = "Choose your pet!";
-    enterName.innerHTML = "Please enter your pet's name here and select a pet!";
-    goToStoreButton.remove();
-    userName.value = '';
-    document.querySelector('.images').style.visibility = "visible";
+    pet = new Pet(petNameInput.value);
+    title.innerHTML = `${player.name}'s house`;
+    petName.innerHTML = pet.name;
+    nameBox.remove();
+    petImage.style.visibility = 'visible';
     //when the user clicks the pick your pet button: 
         //a new user class is created with the player's name
-        //the HTML changes to the "store" view, animals appear!
-        //the gotostore button is removed
-});
-
-animal.forEach(function(e) {
-    e.addEventListener("click", function() {
-        e.style.border = "1px solid black";
-        boughtPetButton.style.visibility = "visible";
-    })
-    //when the user clicks on one of the animals:
-        //a border appears around the selected animal
-        //the buy pet button appears
-})
-
-boughtPetButton.addEventListener("click", function() {
-    pet = new Pet(userName.value);
-    player.buyPet(pet);
-    allOpening.remove();
-    //when the user clicks on the buy pet button:
         //a new pet class is created with the pet's name
-        //all html in the openingPages div is removed
-})
-
-
-
-
-
+        //the name box disappears
+});
 
 
 
 let writeGameScript;
-//script for game page:
+//script for game play:
 
 
 
