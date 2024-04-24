@@ -6,8 +6,8 @@ class Pet {
         this.name = name,
         this.age = 0,
         this.hunger = 5,
-        this.sleepiness = 0,
-        this.boredom = 0
+        this.sleepiness = 5,
+        this.boredom = 5
     }
     eat() {
         this.hunger -=3;
@@ -16,13 +16,13 @@ class Pet {
         }
     }
     nap() {
-        this.sleepiness -=10;
+        this.sleepiness -=4;
         if(this.sleepiness < 0) {
             this.sleepiness = 0;
         }
     }
     play() {
-        this.boredom -=5;
+        this.boredom -=3;
         if(this.boredom < 0) {
             this.boredom = 0;
         }
@@ -78,6 +78,7 @@ goButton.addEventListener("click", function() {
     petName.innerHTML = pet.name;
     nameBox.remove();
     petImage.style.visibility = 'visible';
+    updateHTML();
     //when the user clicks the pick your pet button: 
         //a new user class is created with the player's name
         //a new pet class is created with the pet's name
@@ -89,9 +90,41 @@ goButton.addEventListener("click", function() {
 let writeGameScript;
 //script for game play:
 
+const background = document.querySelector("#home");
 
+function updateHTML() {
+    const petAge = document.getElementById('age');
+    const petSleepiness = document.getElementById('sleepiness');
+    const petHunger = document.getElementById('hunger');
+    const petBoredom = document.getElementById('boredom');
+    petAge.innerHTML = `age: ${pet.age}`;
+    petSleepiness.innerHTML = `sleepiness: ${pet.sleepiness}`;
+    petHunger.innerHTML = `hunger: ${pet.hunger}`;
+    petBoredom.innerHTML = `boredom: ${pet.boredom}`;
+}
 
-//FUNCTIONALITY NOTES FOR LATER:
-//openpage: the button works if the user doesn't input a name
-//storepage: the button works if the user doesn't input a name
-//storepage: if you select more than one animal it selects both
+function lightsOff() {
+    background.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://www.shutterstock.com/image-vector/living-room-interior-design-furniture-600nw-529549399.jpg')";
+    pet.nap();
+}
+
+function lightsOn() {
+    background.style.backgroundImage = "url('https://www.shutterstock.com/image-vector/living-room-interior-design-furniture-600nw-529549399.jpg')";
+}
+
+document.addEventListener('keydown', function(e) {
+    e.preventDefault();
+    console.log(e);
+    if(e.key === 'ArrowUp') {
+        lightsOn();
+    } else if(e.key === 'ArrowDown') {
+        lightsOff();
+    } else if(e.key === 'ArrowLeft') {
+        pet.eat();
+    } else if(e.key === 'ArrowRight') {
+        pet.play();
+    }
+    updateHTML();
+})
+//whenever a game key is pressed, it triggers a function to either turn off the lights (nap)(-sleepiness), turn on the lights, eat (-hunger), or play (-boredom)
+
