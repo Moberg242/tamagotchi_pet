@@ -4,35 +4,44 @@
 class Pet {
     constructor(name) {
         this.name = name,
-        this.age = 0,
-        this.hunger = 5,
-        this.sleepiness = 5,
-        this.boredom = 5
+            this.age = 0,
+            this.hunger = 5,
+            this.sleepiness = 5,
+            this.boredom = 5
     }
     eat() {
-        this.hunger -=3;
-        if(this.hunger < 0) {
+        this.hunger -= 3;
+        if (this.hunger < 0) {
             this.hunger = 0;
         }
+        apple.style.animation = "eatApple 2s forwards";
+        eatSound.play();
+        setTimeout(() => {
+            apple.style.animation = 'none';
+        }, 3000);
     }
     nap() {
-        this.sleepiness -=4;
-        if(this.sleepiness < 0) {
+        this.sleepiness -= 4;
+        if (this.sleepiness < 0) {
             this.sleepiness = 0;
         }
     }
     play() {
-        this.boredom -=3;
-        if(this.boredom < 0) {
+        this.boredom -= 3;
+        if (this.boredom < 0) {
             this.boredom = 0;
         }
+        petImage.style.animation = 'play 3s';
+        setTimeout(() => {
+            petImage.style.animation = 'petMove 10s infinite';
+        }, 4000);
     }
 }
 
 class User {
     constructor(name) {
         this.name = name,
-        this.pets = []
+            this.pets = []
     }
     buyPet(name) {
         this.pets.push(name);
@@ -54,10 +63,10 @@ class User {
 let writeOpeningScript;
 //script for opening page:
 //user enters their name and hits go
-    //the name create the user class and pet class
+//the name create the user class and pet class
 
 
-const title = document.querySelector("h2");
+const title = document.querySelector("h1");
 const goButton = document.getElementById("go");
 const nameBox = document.querySelector('.name');
 const userName = document.getElementById("userName");
@@ -66,12 +75,12 @@ const petName = document.getElementById("petName");
 const petImage = document.getElementById("pet");
 
 let player;
-    //where the new user class instance will go
+//where the new user class instance will go
 let pet;
-    //where the new pet class instance will go
+//where the new pet class instance will go
 
 
-goButton.addEventListener("click", function() {
+goButton.addEventListener("click", function () {
     player = new User(userName.value);
     pet = new Pet(petNameInput.value);
     title.innerHTML = `${player.name}'s house`;
@@ -80,9 +89,9 @@ goButton.addEventListener("click", function() {
     petImage.style.visibility = 'visible';
     updateHTML();
     //when the user clicks the pick your pet button: 
-        //a new user class is created with the player's name
-        //a new pet class is created with the pet's name
-        //the name box disappears
+    //a new user class is created with the player's name
+    //a new pet class is created with the pet's name
+    //the name box disappears
 });
 
 
@@ -90,13 +99,15 @@ goButton.addEventListener("click", function() {
 let writeGameScript;
 //script for game play:
 
-const background = document.querySelector("#home");
+let background = document.querySelector("#home");
+let petAge = document.getElementById('age');
+let petSleepiness = document.getElementById('sleepiness');
+let petHunger = document.getElementById('hunger');
+let petBoredom = document.getElementById('boredom');
+let apple = document.getElementById('apple');
+let eatSound = document.getElementById('eatSound');
 
 function updateHTML() {
-    const petAge = document.getElementById('age');
-    const petSleepiness = document.getElementById('sleepiness');
-    const petHunger = document.getElementById('hunger');
-    const petBoredom = document.getElementById('boredom');
     petAge.innerHTML = `age: ${pet.age}`;
     petSleepiness.innerHTML = `sleepiness: ${pet.sleepiness}`;
     petHunger.innerHTML = `hunger: ${pet.hunger}`;
@@ -112,19 +123,52 @@ function lightsOn() {
     background.style.backgroundImage = "url('https://www.shutterstock.com/image-vector/living-room-interior-design-furniture-600nw-529549399.jpg')";
 }
 
-document.addEventListener('keydown', function(e) {
+function death() {
+    if (pet.hunger >= 10 || pet.boredom >= 10 || pet.sleepiness >= 10) {
+        alert(`${pet.name} has died! ): Please refresh the page to try again.`)
+    }
+}
+
+document.addEventListener('keydown', function (e) {
     e.preventDefault();
-    console.log(e);
-    if(e.key === 'ArrowUp') {
+    if (e.key === 'ArrowUp') {
         lightsOn();
-    } else if(e.key === 'ArrowDown') {
+    } else if (e.key === 'ArrowDown') {
         lightsOff();
-    } else if(e.key === 'ArrowLeft') {
+    } else if (e.key === 'ArrowLeft') {
         pet.eat();
-    } else if(e.key === 'ArrowRight') {
+    } else if (e.key === 'ArrowRight') {
         pet.play();
     }
     updateHTML();
 })
 //whenever a game key is pressed, it triggers a function to either turn off the lights (nap)(-sleepiness), turn on the lights, eat (-hunger), or play (-boredom)
 
+
+//NEED TO: 
+//INCREASE PETS AGE EVERY X MINUTES
+//INCREASE PETS HUNGER/SLEEPINESS/BORED METRICS AT A TIME INTERVAL
+//MORPH PET AT SPECIFIC AGES
+//ANIMATE PET
+
+const timer = document.querySelector('#timer');
+let time = 0;
+let timeShow;
+
+setInterval(function () {
+    time++;
+    let minutes = Math.floor(time/60);
+    let seconds = time % 60;
+    if(time >= 60) {
+        timeShow = minutes + ":" + seconds;
+    } else {
+        timeShow = "0:" + time;
+    };
+    timer.innerHTML = `gameplay: ${timeShow}`;
+    if(time % 10 === 0) {
+        pet.boredom++;
+        pet.sleepiness++;
+        pet.hunger++;
+    }
+    updateHTML();
+}, 1000)

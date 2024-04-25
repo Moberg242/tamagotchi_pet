@@ -1,20 +1,8 @@
 body {
     text-align:  center;
     justify-content: center;
-    width: 100vw;
-    height: 100vh;
     background-color: #CDFAF6;
 }
-
-/* #background {
-    background-image: url("https://cdn.vectorstock.com/i/500p/98/62/cartoon-house-hallway-entrance-interior-vector-44079862.jpg");
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background-repeat: no-repeat;
-    z-index: -1;
-    border: 5px solid white;
-} */
 
 .name, input {
     border: 1px solid black;
@@ -39,7 +27,6 @@ button {
     padding: 10px;
     margin: 30px;
     width: 200px;
-    font-size: 1em;
     background-color: #CDFAF6;
 }
 
@@ -51,11 +38,10 @@ button {
     transform: translateX(15%);
     margin-top: 5%;
     background-image: url("https://www.shutterstock.com/image-vector/living-room-interior-design-furniture-600nw-529549399.jpg");
-    background-repeat: no-repeat;
     background-size: cover;
 }
 
-h2 {
+h1 {
     border: 1px solid black;
     height: 50px;
     background-color: #FDEBD0;
@@ -72,6 +58,7 @@ ul {
     list-style-type: none;
     background-color: #FDEBD0;
     margin: 5px;
+    font-size: 18px;
 }
 
 #petInfo {
@@ -88,29 +75,52 @@ li {
 }
 
 #pet {
-    width: 20%;
+    width: 25%;
     position: absolute;
-    bottom: 5%;
-    left: 40%;
+    bottom: 0%;
+    left: 35%;
     visibility: hidden;
-    /* animation: play 3s */
+    animation: petMove 10s infinite;
 }
 
 @keyframes play {
+    50% {
+        transform: rotate(360deg);
+    }
+}
 
+@keyframes petMove {
+    0% {
+        transform: translate(0);
+    }
+    10% {
+        transform: translate(60%);
+    }
     20% {
-        transform: scale(1, 0.7);
-    };
-    40% {
-        transform: scale(1, 1);
+        transform: translate(-60%);
     }
-    60% {
-        transform: translateY(40px);
+    30% {
+        transform: translate(0);
     }
-    80% {
-        transform: translateY(-40px)
+}
 
+@keyframes eatApple {
+    90% {
+        transform: translate(600%);
+        scale: 0;
     }
-    100% {
-    }
+}
+
+#timer {
+    position: absolute;
+    bottom: 0%;
+    left: 0%;
+
+}
+
+#apple {
+    position: fixed;
+    width: 20%;
+    bottom: 0%;
+    left: 10%;
 }
