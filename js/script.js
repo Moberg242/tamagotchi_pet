@@ -72,7 +72,7 @@ const nameBox = document.querySelector('.name');
 const userName = document.getElementById("userName");
 const petNameInput = document.getElementById("petNameInput");
 const petName = document.getElementById("petName");
-const petImage = document.getElementById("pet");
+let petImage = document.getElementById("pet1");
 
 let player;
 //where the new user class instance will go
@@ -125,7 +125,9 @@ function lightsOn() {
 
 function death() {
     if (pet.hunger >= 10 || pet.boredom >= 10 || pet.sleepiness >= 10) {
-        alert(`${pet.name} has died! ): Please refresh the page to try again.`)
+        background.style.backgroundImage = "url('https://t3.ftcdn.net/jpg/04/97/73/12/360_F_497731291_0REk9c57hXCwcMABy7e6yc6W4eKeyRhz.jpg')";
+        document.querySelector('.gameOver').style.visibility = 'visible';
+        petImage.style.visibility = 'hidden';
     }
 }
 
@@ -144,12 +146,6 @@ document.addEventListener('keydown', function (e) {
 })
 //whenever a game key is pressed, it triggers a function to either turn off the lights (nap)(-sleepiness), turn on the lights, eat (-hunger), or play (-boredom)
 
-
-//NEED TO: 
-//INCREASE PETS AGE EVERY X MINUTES
-//INCREASE PETS HUNGER/SLEEPINESS/BORED METRICS AT A TIME INTERVAL
-//MORPH PET AT SPECIFIC AGES
-//ANIMATE PET
 
 const timer = document.querySelector('#timer');
 let time = 0;
@@ -170,5 +166,37 @@ setInterval(function () {
         pet.sleepiness++;
         pet.hunger++;
     }
+    if(time % 4 === 0) {
+        pet.age++;
+    }
     updateHTML();
+    // death();
 }, 1000)
+
+setInterval(() => {
+    if(pet.age === 2) {
+        petImage.style.visibility = 'hidden';
+        document.querySelector('.ageUp').style.visibility = 'visible';
+        setTimeout(() => {
+            petImage = document.querySelector('#pet2');
+            petImage.style.visibility = 'visible';
+            document.querySelector('.ageUp').style.visibility = 'hidden';
+        }, 2000);
+    } else if(pet.age === 4) {
+        petImage.style.visibility = 'hidden';
+        document.querySelector('.ageUp').style.visibility = 'visible';
+        setTimeout(() => {
+            petImage = document.querySelector('#pet3');
+            petImage.style.visibility = 'visible';
+            document.querySelector('.ageUp').style.visibility = 'hidden';
+        }, 2000);
+    }
+}, 2000);
+//every second the game timer goes up
+//every 10 seconds the pet's hunger/boredom/sleepiness goes up by one
+//every 20 seconds the pet's age goes up by one
+    //box shows up documenting age up, image changes
+//if the pet's hunger/boredom/sleepiness gets too high the pet will die ):
+
+
+//TURN BACK ON DEATH FUNCTION

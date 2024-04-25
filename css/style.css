@@ -4,7 +4,7 @@ body {
     background-color: #CDFAF6;
 }
 
-.name, input {
+.name, input, .ageUp {
     border: 1px solid black;
     border-radius: 25px;
     padding: 10px;
@@ -20,6 +20,25 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.ageUp {
+    visibility: hidden;
+    margin-left: 30%;
+    margin-right: 30%;
+    font-size: 2em;
+}
+
+.gameOver {
+    visibility: hidden;
+    margin-top: 20%;
+    height: 100px;
+    background-color: red;
+    color: white;
+    font-size: 2em;
+    margin-left: 30%;
+    margin-right: 30%;
+    border-radius: 25px;
 }
 
 button {
@@ -38,6 +57,7 @@ button {
     transform: translateX(15%);
     margin-top: 5%;
     background-image: url("https://www.shutterstock.com/image-vector/living-room-interior-design-furniture-600nw-529549399.jpg");
+    background-position-y: bottom;
     background-size: cover;
 }
 
@@ -74,13 +94,17 @@ li {
     margin-bottom: 2px;
 }
 
-#pet {
+#pet1, #pet2, #pet3 {
     width: 25%;
     position: absolute;
     bottom: 0%;
     left: 35%;
     visibility: hidden;
     animation: petMove 10s infinite;
+}
+
+#pet3 {
+    bottom: 5%;
 }
 
 @keyframes play {
