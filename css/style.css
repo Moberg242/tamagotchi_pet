@@ -74,15 +74,19 @@ ul {
     position: fixed;
     top: 55px;
     width: 15%;
-    height: 20%;
+    height: 25%;
     list-style-type: none;
-    background-color: #FDEBD0;
+    background-color: #f7d15d;
     margin: 5px;
-    font-size: 18px;
+    font-size: 20px;
 }
 
 #petInfo {
     right: 0%;
+}
+
+#petInfo, #instructions {
+    visibility: hidden;
 }
 
 li:first-child {
@@ -91,7 +95,7 @@ li:first-child {
 }
 
 li {
-    margin-bottom: 2px;
+    margin-bottom: 5px;
 }
 
 #pet1, #pet2, #pet3 {
@@ -100,11 +104,14 @@ li {
     bottom: 0%;
     left: 35%;
     visibility: hidden;
-    animation: petMove 10s infinite;
 }
 
 #pet3 {
     bottom: 5%;
+}
+
+#pet2, #pet3 {
+    width: 30%
 }
 
 @keyframes play {
@@ -147,4 +154,5 @@ li {
     width: 20%;
     bottom: 0%;
     left: 10%;
+    visibility: hidden;
 }
