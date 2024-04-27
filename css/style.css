@@ -32,7 +32,7 @@ body {
 .gameOver {
     visibility: hidden;
     margin-top: 20%;
-    height: 100px;
+    height: 120px;
     background-color: red;
     color: white;
     font-size: 2em;

@@ -40,9 +40,9 @@ class Pet {
     }
     exercise() {
         keyDown = true;
-        this.boredom -=5;
-        this.hunger +1;
-        this.sleepiness +=1;
+        this.boredom -= 5;
+        this.hunger += 1;
+        this.sleepiness += 1;
         if (this.boredom < 0) {
             this.boredom = 0;
         }
@@ -140,19 +140,19 @@ function updateHTML() {
 
 function lights() {
     keyDown = true;
-    if(isNapping === true) {
+    if (isNapping === true) {
         background.style.backgroundImage = "url('https://www.shutterstock.com/image-vector/living-room-interior-design-furniture-600nw-529549399.jpg')";
-    isNapping = false;
-    petImage.style.animation = 'petMove 5s infinite';
-    } else if(isNapping === false) {
+        isNapping = false;
+        petImage.style.animation = 'petMove 5s infinite';
+    } else if (isNapping === false) {
+        petImage.style.animation = 'none';
         background.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://www.shutterstock.com/image-vector/living-room-interior-design-furniture-600nw-529549399.jpg')";
-    isNapping = true;
-    setInterval(() => {
-        if (isNapping) {
-            pet.nap();
-        }
-    }, 1000);
-    petImage.style.animation = 'none';
+        isNapping = true;
+        setInterval(() => {
+            if (isNapping) {
+                pet.nap();
+            }
+        }, 1000);
     }
 }
 
@@ -164,33 +164,39 @@ function death() {
         apple.remove();
         document.querySelector('#petInfo').remove();
         document.querySelector('#instructions').remove();
+        evolveButton.remove();
+        clearInterval(interval1);
+        clearInterval(interval2);
     }
 }
 
 function evolve() {
-    if (evolution1) {
-        petImage.style.visibility = 'hidden';
-        document.querySelector('.ageUp').style.visibility = 'visible';
-        setTimeout(() => {
-            petImage = document.querySelector('#pet2');
-            petImage.style.visibility = 'visible';
-            document.querySelector('.ageUp').style.visibility = 'hidden';
-            evolveButton.style.visibility = 'hidden';
-            evolution1 = false;
-            evolution2 = true;
-        }, 2000);
-    } else if (evolution2) {
-        petImage.style.visibility = 'hidden';
-        document.querySelector('.ageUp').style.visibility = 'visible';
-        setTimeout(() => {
-            petImage = document.querySelector('#pet3');
-            petImage.style.visibility = 'visible';
-            document.querySelector('.ageUp').style.visibility = 'hidden';
-            evolveButton.style.visibility = 'hidden';
-            evolution2 = false;
-            evolution3 = true;
-        }, 4000);
-    }
+
+        if (evolution1) {
+            petImage.style.visibility = 'hidden';
+            document.querySelector('.ageUp').style.visibility = 'visible';
+            setTimeout(() => {
+                petImage = document.querySelector('#pet2');
+                petImage.style.visibility = 'visible';
+                document.querySelector('.ageUp').style.visibility = 'hidden';
+                evolveButton.style.visibility = 'hidden';
+                evolution1 = false;
+                evolution2 = true;
+            }, 2000);
+        } else if (evolution2) {
+            petImage.style.visibility = 'hidden';
+            document.querySelector('.ageUp').style.visibility = 'visible';
+            setTimeout(() => {
+                petImage = document.querySelector('#pet3');
+                petImage.style.visibility = 'visible';
+                document.querySelector('.ageUp').style.visibility = 'hidden';
+                evolveButton.style.visibility = 'hidden';
+                evolution2 = false;
+                evolution3 = true;
+            }, 4000);
+        }
+        clearInterval(intervals());
+    
 }
 
 document.addEventListener('keydown', function (e) {
@@ -220,9 +226,11 @@ evolveButton.addEventListener("click", function () {
 const timer = document.querySelector('#timer');
 let time = 0;
 let timeShow;
+let interval1;
+let interval2;
 
 function intervals() {
-    setInterval(function () {
+    interval1 = setInterval(function () {
         time++;
         let minutes = Math.floor(time / 60);
         let seconds = time % 60;
@@ -243,7 +251,7 @@ function intervals() {
         updateHTML();
         death();
     }, 1000);
-    setInterval(() => {
+    interval2 = setInterval(() => {
         if (pet.age >= 2 && evolution1 === true) {
             evolveButton.style.visibility = 'visible';
         } else if (pet.age >= 4 && evolution2 === true) {
