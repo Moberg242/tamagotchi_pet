@@ -47,6 +47,17 @@ button {
     margin: 30px;
     width: 200px;
     background-color: #CDFAF6;
+    border: 1px solid black;
+}
+
+#evolve {
+    visibility: hidden;
+    position: fixed;
+    right: 0%;
+    font-size: 2em;
+    bottom: 10%;
+    background-color: #f7d15d;
+
 }
 
 #home {

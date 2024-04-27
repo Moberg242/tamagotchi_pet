@@ -10,6 +10,7 @@ class Pet {
             this.boredom = 5
     }
     eat() {
+        keyDown = true;
         this.hunger -= 3;
         if (this.hunger < 0) {
             this.hunger = 0;
@@ -27,6 +28,7 @@ class Pet {
         } 
     }
     play() {
+        keyDown = true;
         this.boredom -= 2;
         if (this.boredom < 0) {
             this.boredom = 0;
@@ -97,6 +99,7 @@ goButton.addEventListener("click", function () {
 
 
 
+
 let writeGameScript;
 //script for game play:
 
@@ -106,9 +109,15 @@ let petAge = document.getElementById('age');
 let petSleepiness = document.getElementById('sleepiness');
 let petHunger = document.getElementById('hunger');
 let petBoredom = document.getElementById('boredom');
+const evolveButton = document.getElementById("evolve");
+
 
 let eatSound = document.getElementById('eatSound');
 let isNapping = false;
+let evolution1 = true;
+let evolution2 = false;
+let evolution3 = false;
+let keyDown = false;
 
 function updateHTML() {
     petAge.innerHTML = `age: ${pet.age}`;
@@ -118,6 +127,7 @@ function updateHTML() {
 }
 
 function lightsOff() {
+    keyDown = true;
     background.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://www.shutterstock.com/image-vector/living-room-interior-design-furniture-600nw-529549399.jpg')";
     isNapping = true;
     setInterval(() => {
@@ -129,6 +139,7 @@ function lightsOff() {
 }
 
 function lightsOn() {
+    keyDown = true;
     background.style.backgroundImage = "url('https://www.shutterstock.com/image-vector/living-room-interior-design-furniture-600nw-529549399.jpg')";
     isNapping = false;
     petImage.style.animation = 'petMove 10s infinite';
@@ -146,21 +157,54 @@ function death() {
     }
 }
 
+function evolve() {
+    if (evolution1) {
+        petImage.style.visibility = 'hidden';
+        document.querySelector('.ageUp').style.visibility = 'visible';
+        setTimeout(() => {
+            petImage = document.querySelector('#pet2');
+            petImage.style.visibility = 'visible';
+            document.querySelector('.ageUp').style.visibility = 'hidden';
+            evolveButton.style.visibility = 'hidden';
+            evolution1 = false;
+            evolution2 = true;
+        }, 2000);
+    } else if (evolution2) {
+        petImage.style.visibility = 'hidden';
+        document.querySelector('.ageUp').style.visibility = 'visible';
+        setTimeout(() => {
+            petImage = document.querySelector('#pet3');
+            petImage.style.visibility = 'visible';
+            document.querySelector('.ageUp').style.visibility = 'hidden';
+            evolveButton.style.visibility = 'hidden';
+            evolution3 = true;
+        }, 4000);
+    }
+}
+
 document.addEventListener('keydown', function (e) {
-    // e.preventDefault();
-    if (e.key === 'ArrowUp') {
-        lightsOn();
-    } else if (e.key === 'ArrowDown') {
-        lightsOff();
-    } else if (e.key === 'ArrowLeft' && isNapping === false) {
-        pet.eat();
-    } else if (e.key === 'ArrowRight' && isNapping === false) {
-        pet.play();
+    if(keyDown === false) {
+        if (e.key === 'ArrowUp') {
+            lightsOn();
+        } else if (e.key === 'ArrowDown') {
+            lightsOff();
+        } else if (e.key === 'ArrowLeft' && isNapping === false) {
+            pet.eat();
+        } else if (e.key === 'ArrowRight' && isNapping === false) {
+            pet.play();
+        }
+        setTimeout(() => {
+            keyDown = false;
+        }, 1500);
     }
     updateHTML();
 })
 //whenever a game key is pressed, it triggers a function to either turn off the lights (nap)(-sleepiness), turn on the lights, eat (-hunger), or play (-boredom)
 
+evolveButton.addEventListener("click", function() {
+    evolve();
+})
+//when the evolve button is clicked the pet will evolve!
 
 const timer = document.querySelector('#timer');
 let time = 0;
@@ -189,28 +233,15 @@ function intervals() {
         death();
     }, 1000);
     setInterval(() => {
-        if (pet.age === 2) {
-            petImage.style.visibility = 'hidden';
-            document.querySelector('.ageUp').style.visibility = 'visible';
-            setTimeout(() => {
-                petImage = document.querySelector('#pet2');
-                petImage.style.visibility = 'visible';
-                document.querySelector('.ageUp').style.visibility = 'hidden';
-            }, 2000);
-        } else if (pet.age === 4) {
-            petImage.style.visibility = 'hidden';
-            document.querySelector('.ageUp').style.visibility = 'visible';
-            setTimeout(() => {
-                petImage = document.querySelector('#pet3');
-                petImage.style.visibility = 'visible';
-                document.querySelector('.ageUp').style.visibility = 'hidden';
-            }, 4000);
+        if(pet.age >=2 && evolution1 === true) {
+            evolveButton.style.visibility = 'visible';
+        } else if(pet.age >= 4 && evolution2 === true) {
+            evolveButton.style.visibility = 'visible';
         }
     }, 15000);
 }
 //every second the game timer goes up
 //every 10 seconds the pet's hunger/boredom/sleepiness goes up by one
 //every 20 seconds the pet's age goes up by one
-//box shows up documenting age up, image changes
 //if the pet's hunger/boredom/sleepiness gets too high the pet will die ):
-//every two seconds the code checks the pet's age, if they are 2 or 4 they will age up!
+//every 15 seconds the code checks the pet's age, if they are >2 or >4 you have the option to evolve them!
