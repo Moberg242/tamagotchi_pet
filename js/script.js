@@ -6,8 +6,8 @@ class Pet {
         this.name = name,
             this.age = 0,
             this.hunger = 5,
-            this.sleepiness = 5,
-            this.boredom = 5
+            this.sleepiness = 3,
+            this.boredom = 6
     }
     eat() {
         keyDown = true;
@@ -19,7 +19,7 @@ class Pet {
         eatSound.play();
         setTimeout(() => {
             apple.style.animation = 'none';
-        }, 3000);
+        }, 1600);
     }
     nap() {
         this.sleepiness -= 1;
@@ -41,15 +41,15 @@ class Pet {
     exercise() {
         keyDown = true;
         this.boredom -=5;
+        this.hunger +1;
+        this.sleepiness +=1;
         if (this.boredom < 0) {
             this.boredom = 0;
         }
-        this.hunger +1;
-        this.sleepiness +=1;
-        petImage.style.animation = 'exercise 5s';
+        petImage.style.animation = 'exercise 2s ease';
         setTimeout(() => {
             petImage.style.animation = 'petMove 5s infinite';
-        }, 4000);
+        }, 2000);
     }
 }
 
@@ -101,6 +101,7 @@ goButton.addEventListener("click", function () {
     document.querySelector('#petInfo').style.visibility = 'visible';
     document.querySelector('#instructions').style.visibility = 'visible';
     intervals();
+    petImage.style.animation = 'petMove 5s infinite';
 });
 //when the user clicks the pick your pet button: 
 //a new user class is created with the player's name
@@ -155,7 +156,6 @@ function lights() {
     }
 }
 
-
 function death() {
     if (pet.hunger >= 10 || pet.boredom >= 10 || pet.sleepiness >= 10) {
         background.style.backgroundImage = "url('https://t3.ftcdn.net/jpg/04/97/73/12/360_F_497731291_0REk9c57hXCwcMABy7e6yc6W4eKeyRhz.jpg')";
@@ -187,6 +187,7 @@ function evolve() {
             petImage.style.visibility = 'visible';
             document.querySelector('.ageUp').style.visibility = 'hidden';
             evolveButton.style.visibility = 'hidden';
+            evolution2 = false;
             evolution3 = true;
         }, 4000);
     }
@@ -196,7 +197,7 @@ document.addEventListener('keydown', function (e) {
     if (keyDown === false) {
         if (e.key === 'ArrowUp') {
             lights();
-        } else if (e.key === 'ArrowDown') {
+        } else if (e.key === 'ArrowDown' && isNapping === false) {
             pet.exercise();
         } else if (e.key === 'ArrowLeft' && isNapping === false) {
             pet.eat();
@@ -231,11 +232,11 @@ function intervals() {
             timeShow = "0:" + time;
         };
         timer.innerHTML = `gameplay: ${timeShow}`;
-        // if (time % 8 === 0) {
-        //     pet.boredom++;
-        //     pet.sleepiness++;
-        //     pet.hunger++;
-        // }
+        if (time % 8 === 0) {
+            pet.boredom++;
+            pet.sleepiness++;
+            pet.hunger++;
+        }
         if (time % 15 === 0) {
             pet.age++;
         }
@@ -255,7 +256,3 @@ function intervals() {
 //every 20 seconds the pet's age goes up by one
 //if the pet's hunger/boredom/sleepiness gets too high the pet will die ):
 //every 15 seconds the code checks the pet's age, if they are >2 or >4 you have the option to evolve them!
-
-//EVERYTHING IS WORKING
-//HI
-//IT WORKS

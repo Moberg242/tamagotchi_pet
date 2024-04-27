@@ -135,13 +135,13 @@ li {
     0% {
         transform: translate(0);
     }
-    20% {
+    30% {
         transform: translate(60%);
     }
-    40% {
+    60% {
         transform: translate(-60%);
     }
-    60% {
+    100% {
         transform: translate(0);
     }
 }
@@ -156,11 +156,10 @@ li {
 @keyframes exercise {
     0% {transform: scale(1,1), translateY(0)}
     10% {transform: scale(1.2, .75);}
-    20% {transform: scale(.75,1.2);
+    40% {transform: scale(.75, 1.2);
         transform: translateY(-200px);}
-    30% {transform: scale(1,1);}
-    30% {transform: scale(1.2,.75);
-        transform: translateY(0px);}
+    75% {transform: translateY(-1px)}
+    100% {transform: translateY(0)}
 }
 /* 
 0%   { transform: scale(1,1)    translateY(0); }
