@@ -14,7 +14,7 @@ class Pet {
         this.hunger -= 3;
         if (this.hunger < 0) {
             this.hunger = 0;
-        } 
+        }
         apple.style.animation = "eatApple 2s forwards";
         eatSound.play();
         setTimeout(() => {
@@ -25,17 +25,30 @@ class Pet {
         this.sleepiness -= 1;
         if (this.sleepiness < 0) {
             this.sleepiness = 0;
-        } 
+        }
     }
     play() {
         keyDown = true;
         this.boredom -= 2;
         if (this.boredom < 0) {
             this.boredom = 0;
-        } 
+        }
         petImage.style.animation = 'play 3s';
         setTimeout(() => {
-            petImage.style.animation = 'petMove 10s infinite';
+            petImage.style.animation = 'petMove 5s infinite';
+        }, 4000);
+    }
+    exercise() {
+        keyDown = true;
+        this.boredom -=5;
+        if (this.boredom < 0) {
+            this.boredom = 0;
+        }
+        this.hunger +1;
+        this.sleepiness +=1;
+        petImage.style.animation = 'exercise 5s';
+        setTimeout(() => {
+            petImage.style.animation = 'petMove 5s infinite';
         }, 4000);
     }
 }
@@ -76,8 +89,6 @@ const petNameInput = document.getElementById("petNameInput");
 let petImage = document.getElementById("pet1");
 let apple = document.getElementById('apple');
 
-
-
 goButton.addEventListener("click", function () {
     player = new User(userName.value);
     pet = new Pet(petNameInput.value);
@@ -91,11 +102,11 @@ goButton.addEventListener("click", function () {
     document.querySelector('#instructions').style.visibility = 'visible';
     intervals();
 });
-    //when the user clicks the pick your pet button: 
-    //a new user class is created with the player's name
-    //a new pet class is created with the pet's name
-    //the name box disappears
-    //start interval timers
+//when the user clicks the pick your pet button: 
+//a new user class is created with the player's name
+//a new pet class is created with the pet's name
+//the name box disappears
+//start interval timers
 
 
 
@@ -126,9 +137,14 @@ function updateHTML() {
     petBoredom.innerHTML = `boredom: ${pet.boredom}`;
 }
 
-function lightsOff() {
+function lights() {
     keyDown = true;
-    background.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://www.shutterstock.com/image-vector/living-room-interior-design-furniture-600nw-529549399.jpg')";
+    if(isNapping === true) {
+        background.style.backgroundImage = "url('https://www.shutterstock.com/image-vector/living-room-interior-design-furniture-600nw-529549399.jpg')";
+    isNapping = false;
+    petImage.style.animation = 'petMove 5s infinite';
+    } else if(isNapping === false) {
+        background.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://www.shutterstock.com/image-vector/living-room-interior-design-furniture-600nw-529549399.jpg')";
     isNapping = true;
     setInterval(() => {
         if (isNapping) {
@@ -136,14 +152,9 @@ function lightsOff() {
         }
     }, 1000);
     petImage.style.animation = 'none';
+    }
 }
 
-function lightsOn() {
-    keyDown = true;
-    background.style.backgroundImage = "url('https://www.shutterstock.com/image-vector/living-room-interior-design-furniture-600nw-529549399.jpg')";
-    isNapping = false;
-    petImage.style.animation = 'petMove 10s infinite';
-}
 
 function death() {
     if (pet.hunger >= 10 || pet.boredom >= 10 || pet.sleepiness >= 10) {
@@ -153,7 +164,6 @@ function death() {
         apple.remove();
         document.querySelector('#petInfo').remove();
         document.querySelector('#instructions').remove();
-        pet.age = 100;
     }
 }
 
@@ -183,11 +193,11 @@ function evolve() {
 }
 
 document.addEventListener('keydown', function (e) {
-    if(keyDown === false) {
+    if (keyDown === false) {
         if (e.key === 'ArrowUp') {
-            lightsOn();
+            lights();
         } else if (e.key === 'ArrowDown') {
-            lightsOff();
+            pet.exercise();
         } else if (e.key === 'ArrowLeft' && isNapping === false) {
             pet.eat();
         } else if (e.key === 'ArrowRight' && isNapping === false) {
@@ -195,13 +205,13 @@ document.addEventListener('keydown', function (e) {
         }
         setTimeout(() => {
             keyDown = false;
-        }, 1500);
+        }, 1000);
     }
     updateHTML();
 })
-//whenever a game key is pressed, it triggers a function to either turn off the lights (nap)(-sleepiness), turn on the lights, eat (-hunger), or play (-boredom)
+//whenever a game key is pressed, it triggers a function to either turn on/off the lights (nap)(-sleepiness), exercise (-boredom/+hunger/+sleepiness), eat (-hunger), or play (-boredom)
 
-evolveButton.addEventListener("click", function() {
+evolveButton.addEventListener("click", function () {
     evolve();
 })
 //when the evolve button is clicked the pet will evolve!
@@ -221,11 +231,11 @@ function intervals() {
             timeShow = "0:" + time;
         };
         timer.innerHTML = `gameplay: ${timeShow}`;
-        if (time % 8 === 0) {
-            pet.boredom++;
-            pet.sleepiness++;
-            pet.hunger++;
-        }
+        // if (time % 8 === 0) {
+        //     pet.boredom++;
+        //     pet.sleepiness++;
+        //     pet.hunger++;
+        // }
         if (time % 15 === 0) {
             pet.age++;
         }
@@ -233,9 +243,9 @@ function intervals() {
         death();
     }, 1000);
     setInterval(() => {
-        if(pet.age >=2 && evolution1 === true) {
+        if (pet.age >= 2 && evolution1 === true) {
             evolveButton.style.visibility = 'visible';
-        } else if(pet.age >= 4 && evolution2 === true) {
+        } else if (pet.age >= 4 && evolution2 === true) {
             evolveButton.style.visibility = 'visible';
         }
     }, 15000);
@@ -245,3 +255,7 @@ function intervals() {
 //every 20 seconds the pet's age goes up by one
 //if the pet's hunger/boredom/sleepiness gets too high the pet will die ):
 //every 15 seconds the code checks the pet's age, if they are >2 or >4 you have the option to evolve them!
+
+//EVERYTHING IS WORKING
+//HI
+//IT WORKS

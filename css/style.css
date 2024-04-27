@@ -135,13 +135,13 @@ li {
     0% {
         transform: translate(0);
     }
-    10% {
+    20% {
         transform: translate(60%);
     }
-    20% {
+    40% {
         transform: translate(-60%);
     }
-    30% {
+    60% {
         transform: translate(0);
     }
 }
@@ -152,6 +152,23 @@ li {
         scale: 0;
     }
 }
+
+@keyframes exercise {
+    0% {transform: scale(1,1), translateY(0)}
+    10% {transform: scale(1.2, .75);}
+    20% {transform: scale(.75,1.2);
+        transform: translateY(-200px);}
+    30% {transform: scale(1,1);}
+    30% {transform: scale(1.2,.75);
+        transform: translateY(0px);}
+}
+/* 
+0%   { transform: scale(1,1)    translateY(0); }
+10%  { transform: scale(1.1,.9) translateY(0); }
+30%  { transform: scale(.9,1.1) translateY(-100px); }
+50%  { transform: scale(1,1)    translateY(0); }
+100% { transform: scale(1,1)    translateY(0); }
+    } */
 
 #timer {
     position: absolute;
