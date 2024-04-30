@@ -63,10 +63,29 @@ class User {
     }
 }
 
+class Baby extends Pet {
+    constructor(name) {
+        super(name),
+        this.age = 0,
+        this.hunger = 5,
+        this.sleepiness = 3,
+        this.boredom = 6,
+        this.superPower = []
+    }
+    getSuperPower() {
+        let number = Math.floor(Math.random()*superPowers.length);
+        this.superPower.push(superPowers[number]);
+    }
+}
+
 let player;
 //where the new user class instance will go
 let pet;
 //where the new pet class instance will go
+let baby;
+//where the new baby class instance will go
+
+let superPowers = ['hyper-purr','biscuit makin','yowly yowl']
 
 //testing
 // let me = new User("michelle");
@@ -79,6 +98,9 @@ let pet;
 // leafee.nap();
 // leafee.play();
 // console.log(me);
+// const newBaby = new Baby('buttercup');
+// newBaby.getSuperPower();
+
 
 let writeOpeningScript;
 //script for opening page:
@@ -264,3 +286,6 @@ function intervals() {
 //every 20 seconds the pet's age goes up by one
 //if the pet's hunger/boredom/sleepiness gets too high the pet will die ):
 //every 15 seconds the code checks the pet's age, if they are >2 or >4 you have the option to evolve them!
+
+//Things to add:
+//if evolution3 then the pet should be able to have a baby
