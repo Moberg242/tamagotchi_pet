@@ -66,14 +66,14 @@ class User {
 class Baby extends Pet {
     constructor(name) {
         super(name),
-        this.age = 0,
-        this.hunger = 5,
-        this.sleepiness = 3,
-        this.boredom = 6,
-        this.superPower = []
+            this.age = 0,
+            this.hunger = 5,
+            this.sleepiness = 3,
+            this.boredom = 6,
+            this.superPower = []
     }
     getSuperPower() {
-        let number = Math.floor(Math.random()*superPowers.length);
+        let number = Math.floor(Math.random() * superPowers.length);
         this.superPower.push(superPowers[number]);
     }
 }
@@ -85,7 +85,7 @@ let pet;
 let baby;
 //where the new baby class instance will go
 
-let superPowers = ['hyper-purr','biscuit makin','yowly yowl']
+let superPowers = ['hyper-purr', 'biscuit makin', 'yowly yowl']
 
 //testing
 // let me = new User("michelle");
@@ -151,6 +151,7 @@ let isNapping = false;
 let evolution1 = true;
 let evolution2 = false;
 let evolution3 = false;
+let evolution4 = false;
 let keyDown = false;
 
 function updateHTML() {
@@ -193,32 +194,50 @@ function death() {
 }
 
 function evolve() {
-
-        if (evolution1) {
-            petImage.style.visibility = 'hidden';
-            document.querySelector('.ageUp').style.visibility = 'visible';
-            setTimeout(() => {
-                petImage = document.querySelector('#pet2');
-                petImage.style.visibility = 'visible';
-                document.querySelector('.ageUp').style.visibility = 'hidden';
-                evolveButton.style.visibility = 'hidden';
-                evolution1 = false;
-                evolution2 = true;
-            }, 2000);
-        } else if (evolution2) {
-            petImage.style.visibility = 'hidden';
-            document.querySelector('.ageUp').style.visibility = 'visible';
-            setTimeout(() => {
-                petImage = document.querySelector('#pet3');
-                petImage.style.visibility = 'visible';
-                document.querySelector('.ageUp').style.visibility = 'hidden';
-                evolveButton.style.visibility = 'hidden';
-                evolution2 = false;
-                evolution3 = true;
-            }, 4000);
-        }
-        clearInterval(intervals());
-    
+    if (evolution1) {
+        petImage.style.visibility = 'hidden';
+        document.querySelector('.ageUp').style.visibility = 'visible';
+        setTimeout(() => {
+            petImage = document.querySelector('#pet2');
+            petImage.style.visibility = 'visible';
+            document.querySelector('.ageUp').style.visibility = 'hidden';
+            evolveButton.style.visibility = 'hidden';
+            evolution1 = false;
+            evolution2 = true;
+        }, 2000);
+    } else if (evolution2) {
+        petImage.style.visibility = 'hidden';
+        document.querySelector('.ageUp').style.visibility = 'visible';
+        setTimeout(() => {
+            petImage = document.querySelector('#pet3');
+            petImage.style.visibility = 'visible';
+            document.querySelector('.ageUp').style.visibility = 'hidden';
+            evolveButton.style.visibility = 'hidden';
+            evolution2 = false;
+            evolution3 = true;
+        }, 4000);
+    } else if(evolution3) {
+        petImage.style.visibility = 'hidden';
+        document.querySelector('.ageUp').innerHTML = "your pet had a baby!";
+        document.querySelector('.ageUp').style.visibility = 'visible';
+        setTimeout(() => {
+            petImage = document.querySelector('#pet4');
+            petImage.style.visibility = 'visible';
+            document.querySelector('.ageUp').remove();
+            evolveButton.remove();
+            petNameInput.innerHTML = `${pet.name}'s baby!`;
+            petAge.innerHTML = baby.name;
+            petSleepiness.innerHTML = baby.sleepiness;
+            petBoredom.innerHTML = baby.boredom;
+            petHunger.innerHTML = baby.hunger;
+            evolution3 = false;
+            evolution4 = true;
+        }, 4000);
+        //pop up to name the new baby
+        //create new baby class
+        //update picture, update html name, update petInfo
+            //html is not updating, probably because the update html function is running with the interval. i need to go in and edit that instead of adding it here...
+    }
 }
 
 document.addEventListener('keydown', function (e) {
@@ -267,7 +286,7 @@ function intervals() {
             pet.sleepiness++;
             pet.hunger++;
         }
-        if (time % 15 === 0) {
+        if (time % 10 === 0) {
             pet.age++;
         }
         updateHTML();
@@ -278,8 +297,10 @@ function intervals() {
             evolveButton.style.visibility = 'visible';
         } else if (pet.age >= 4 && evolution2 === true) {
             evolveButton.style.visibility = 'visible';
+        } else if(pet.age >=6 && evolution3 === true) {
+            evolveButton.style.visibility = 'visible';
         }
-    }, 15000);
+    }, 10000);
 }
 //every second the game timer goes up
 //every 10 seconds the pet's hunger/boredom/sleepiness goes up by one

@@ -109,7 +109,7 @@ li {
     margin-bottom: 5px;
 }
 
-#pet1, #pet2, #pet3 {
+#pet1, #pet2, #pet3, #pet4 {
     width: 25%;
     position: absolute;
     bottom: 0%;
@@ -117,11 +117,11 @@ li {
     visibility: hidden;
 }
 
-#pet3 {
+#pet3, #pet4 {
     bottom: 5%;
 }
 
-#pet2, #pet3 {
+#pet2, #pet3, #pet4 {
     width: 30%
 }
 
